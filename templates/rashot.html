@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+
+{% block head %}
+    <style type="text/css">
+        div p{
+            margin: 5px;
+        }
+    </style>
+{% endblock %}
+{% block back %}
+    ../{{ img }}
+{% endblock %}
+{% block body %}
+
+{% endblock %}
+{% block div %}
+    <br>
+    <table width="100%">
+        <tr>
+            <td>
+                <h1 align="center" style="color: firebrick">{{ head }}</h1>
+            </td>
+            <td align="right">
+                <div style="height: 150px; width: 250px"><img style="height: 150px; width: 250px; " src="{{ img }}"></div>
+            </td>
+        </tr>
+    </table>
+    <p>{% for g in content2 %}{% if g == "|" %}<br>{% else %}{{ g }}{% endif %}{% endfor %}</p>
+{% endblock %}

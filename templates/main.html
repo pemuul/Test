@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% block head %}
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">-->
+    <style type="text/css">
+        p{
+            color: white;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1 align="center" style="color: firebrick">Рецепты хлеба</h1>
+
+{% endblock %}
+{% block div %}
+        <br>
+    <table style="margin: 0 auto" class="table">
+        {% for alle in all %}
+        {% if forloop.counter  in range %}
+        <tr style="margin: 10px">
+
+        {% endif %}
+          <td align="center"><div style="width: 19rem; height: 26rem; outline: 2px; border-radius: 10px;  padding: 0; border: black; border-style: solid "><div class="card" style=" width: 95%; height: 95%; margin: 4px auto; width: 18rem;">
+              <h5 style=""><b><p class="card-text">{{  alle.name }}</p></b></h5>
+          <img src="../{{  alle.img }}" style="border-radius: 5px 5px 0 0; width: 180px; height: 120px;" class="card-img-top" alt="...">
+          <div class="card-body" style="margin: 0 auto">
+              <div style="height:80px"><p class="card-text">{{ alle.kratk }}</p></div>
+              <div align="center" ><a href="{{ forloop.counter }}"><button  type="button" class="btn btn-outline-warning"> {{ alle.button }} </button></a></div>
+          </div>
+          </div></div><p> </p></td>
+        {% if forloop.counter  in range2 %}
+        </tr>
+        {% endif %}
+        {% endfor %}
+
+    </table>
+{% endblock %}

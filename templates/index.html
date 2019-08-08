@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>Hleb</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <style type="text/css">
+        .block33{
+            padding: 0;
+            width: 90%;
+            background: #807a02;
+            margin:0 auto;
+            border-radius: 10px;
+        }
+    </style>
+    {% block head %}
+    {% endblock %}
+</head>
+<body background="../{{ img }}">
+     <ul class="nav nav-pills">
+      <li></li>
+      <li role="presentation" {% if activ.gl %}class="active"{% endif %}><a {% if not activ.gl %} href="{% url 'index' %}" {% endif %}><img src="../static/55.jpg" style="border-radius: 5px 5px 0 0; width: 40px; height: 30px;" class="card-img-top" alt="...">  Главная</a></li>
+      <li  role="presentation" {% if activ.o %}class="active"{% endif %}><a {% if not activ.o %} href="{% url 'o_nas' %}" {% endif %}>О нас</a></li>
+      <!--<li role="presentation" {% if activ.a %}class="active"{% endif %}><a {% if not activ.a %} href="{% url 'admin:index' %}" {% endif %}>Админ</a></li>-->
+      {% if activ.rash %}<li role="presentation" class="active"><a  href="#" >{{ activ.rash }}</a></li>{% endif %}
+      <div style="margin: 12px 0 0 90%"><li role="presentation"><a href="{% url 'admin:index' %}">{{ autorizait }}</a></li></div>
+    </ul>
+    {% block body %}
+    {% endblock %}
+    <div class="block33">
+        <div style="width: 95%; margin:0 auto;">
+            {% block div %}
+            {% endblock %}
+        </div>
+        <br>
+    </div>
+</body>
+</html>

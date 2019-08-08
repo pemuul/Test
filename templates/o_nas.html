@@ -1,0 +1,99 @@
+{% extends "index.html" %}
+
+{% block head %}
+    <style type="text/css">
+        div{
+            color: #000004;
+        }
+        th{
+            text-align: center;
+            color: #4000dc;
+        }
+        td{
+            padding: 0 0 0 10px;
+        }
+        input{
+            color:black;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function funcBefore (){
+            $("#informat").text ("Ожидание даныых...");
+        }
+        function funcSucsecc (data){
+            $("#informat").text (data);
+            if(data == "Ok"){
+                document.location.href = "{% url "o_nas" %}";
+            }
+        }
+        $(document).ready (function () {
+            $("#bt").bind("click", function () {
+                var name = $("#name").val();
+                var age = $("#age").val();
+                $.ajax({
+                    url: 'csrf',
+                    type: 'post', // This is the default though, you don't actually need to always mention it
+                    data: ({name: name, age:age}),
+                    dataType: "html",
+                    beforeSend: funcBefore,
+                    success: funcSucsecc
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+{% endblock %}
+{% block div %}
+        <br>
+        <table width="100%">
+            <tr>
+                <td>
+                    <h3 style="cursor: pointer;">Я, Жданов Роман Андреевич</h3>
+                </td>
+                <td align="right">
+                    <div style="height: 150px; width: 250px"><img style="height: 250px; width: 250px; " src="../static/77.jpg"></div>
+                </td>
+            </tr>
+        </table>
+    <br><br><br><br><br><br>
+        <p>Я, Жданов Роман, студент второго курса Иркутского Энергетического Колледжа (ИЭК), специальности Информационные Системы (ИС). Хочу предложить свою кандидатуру в качестве стажёра-программиста на лето, надеюсь, что дольше.<br>
+        Не много о себе: мне 19 лет, более 4-х лет назад начал изучать программирование. Начал с программирования микроконтроллеров Ардуино на языке С. Разработал и реализовал несколько проектов: терморегулятор на хлебопекарную печь, Блютуз часы, «Бесполезную» коробку и другие). Самостоятельно собрал 3D принтер собственной конструкции, запустил и настроил его. Был опыт написания компьютерной игры на Unity (небольшой). После этого увлёкся программированием на Python. К настоящему моменту прошёл больше половины учебного курса по Python от Mail.ru Group, параллельно изучаю Django. Прошёл отборочный этап и был приглашён на «бассейн» в Школу 21 Сбербанка (21-school.ru) . Это был замечательный опыт обучения и командной работы. По окончании бассейна я был зачислен в резерв, но, к сожалению, не получил приглашение на дальнейшую учёбу. На первом курсе я был членом сборной команды колледжа по Робототехнике, и занимал индивидуальные и командные первые места на городских и областных соревнованиях.
+        <br>Мои знания языков:
+        <br>     · С++/С - знаю базу, работал с классами и функциями, ссылками и т.д.
+        <br>     · Python – знаю немного больше базы, влюблён в этот язык.
+        <br>Мои увлечения: занимаюсь толканием ядра, несколько раз выигрывал областные и зональные соревнования по толканию ядра и метанию диска. Люблю петь, катаюсь на сноуборде. Люблю трудности и преодолевать их самому или же в команде.</p>
+    <center><h2>Коментарии сайта</h2></center>
+
+    {% for name in names %}
+        <div>
+            <table border="1"  style="width: 90%; margin: 0 auto" id="inform" align="center">
+            <tr style="border-radius: 5px; margin: 0 auto; background: #d6d7de; border-radius: 5px; width: 50%">
+                    <td width="20%" >
+                        <b>{{ name }}</b>
+                    </td>
+                    <td>
+                        {{ name.koment }}
+                    </td>
+                </tr>
+            </table>
+            <div style="margin: 0 70%"><p>{{ name.data }}</p></div>
+        </div>
+        <br>
+    {% endfor %}
+    <form action="{% url 'csrf' %}" method="post" >
+        {% csrf_token %}
+        <div align="center" style="align: center">
+            <p id="load"  ><h1 style="color: brown">Введите свои данные</h1></p>
+            <div style="margin: 0 auto;">
+                <div ><input placeholder="Имя" tabindex="1"  type="text" size="40" style="border-radius: 10px; margin:0 auto; text-align: center" id="name"></div>
+                <div style="word-wrap:break-word;"><input placeholder="Коментарий" tabindex="2" type="text" size="70" style="border-radius: 10px; margin:0 auto; text-align: center; height: 120px; white-space: normal;" id="age"></div>
+            </div>
+            <br>
+            <div><input class="btn btn-primary" tabindex="3" size="40" type="button" id="bt" value="ОТПРАВИТЬ"></div>
+            <div id="informat" ></div>
+        </div>
+    </form>
+{% endblock %}
